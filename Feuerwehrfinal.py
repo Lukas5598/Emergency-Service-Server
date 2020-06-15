@@ -8,7 +8,7 @@ avv = 2 #anzahl Fahrzeuge
 vf=0 #verfügbare Fahrzeuge
 tr = []
 
-def make_firefighter(avv):
+def feuerwehr(avv):
     global of
     global vf
     ff = ["Feuerwehrmann1", "Einsatzleiter1", "Feuerwehrmann2", "Feuerwehrmann3", "Feuerwehrmann4", "Feuerwehrmann5",
@@ -36,7 +36,7 @@ def make_firefighter(avv):
             print(payload)
             client.publish(topic, payload)
 
-def savetask(split, b, of):
+def task_saver(split, b, of):
     currentDT = datetime.datetime.now() #Aktuelle Uhrzeit
     global vf
     global task
@@ -73,7 +73,7 @@ def savetask(split, b, of):
         payload = (b+" "+"False"+" "+currentDT.strftime("%Y-%m-%d %H:%M:%S"))
         client.publish(topic, str(payload))
             
-def vehicle_returned(split):
+def fahrzeug_rückkehr(split):
     currentDT = datetime.datetime.now() #Aktuelle Uhrzeit
     global tr
     try:
@@ -84,7 +84,7 @@ def vehicle_returned(split):
                 b = list(b.split(",", 1))
                 if(isinstance(float(b[0]), float) == True):
                     if(isinstance(float(b[1]), float) == True):
-                        get_coordinates(split)
+                        koordinaten(split)
                         global task
                         global vf
                         x = task.index(split[0])
@@ -105,7 +105,7 @@ def vehicle_returned(split):
     except:
         print("Error -")
 
-def check(split):
+def control(split):
     try:
         b = split[1]
         b = list(b.split(",", 1))
@@ -115,11 +115,11 @@ def check(split):
                 x = tr.index(str(split[0]))
                 if((str(tr[x]) == str(split[0])) and (str(tr[x+1]) == "True")):
                     tr[x+1] = "False"
-                    get_coordinates(split)
+                    koordinaten(split)
     except:
         print("Wrong Data")
 
-def get_coordinates(split):
+def koordinaten(split):
     topic = ("/hshl/firefighters/"+split[0])
     payload = (split[1])
     client.publish(topic, str(payload))
@@ -136,9 +136,9 @@ def on_message(client, userdata, message):
     b = list(a[3])
     try:
         if(a[3] == 'FahrzeugRückkehr'):
-            vehicle_returned(split)
+            fahrzeug_rückkehr(split)
         elif(a[3] == 'FahrzeugAnkunft'):
-                check(split)
+                control(split)
         elif(b[0] == "s"):
             try:
                 c = str(b[0]+b[1])
@@ -148,7 +148,7 @@ def on_message(client, userdata, message):
                     if(str(split[1]) != "Vehicle_Avalible"):
                         if(len(split) == 3):
                             print("Checking...")
-                            savetask(split, b, of)
+                            task_saver(split, b, of)
                 except:
                     print("")
     except:
@@ -168,7 +168,7 @@ def on_connect(client, userdata, flags, rc):
         client.subscribe(str(a))
         i = i+1
     print("subsribed")
-    make_firefighter(avv)
+    feuerwehr(avv)
 
 #Dont change anything from here!!
 BROKER_ADDRESS = "mr2mbqbl71a4vf.messaging.solace.cloud" #Adresse des MQTT Brokers
@@ -180,4 +180,3 @@ client.connect(BROKER_ADDRESS, port = 20614) #Verbindung zum Broker aufbauen
 
 print("Connected to MQTT Broker: " + BROKER_ADDRESS)
 client.loop_forever()#Endlosschleife um neue Nachrichten empfangen zu können
-
