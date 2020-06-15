@@ -128,6 +128,7 @@ def on_message(client, userdata, message):
     currentDT = datetime.datetime.now() #Aktuelle Uhrzeit
     print(currentDT.strftime("%Y-%m-%d %H:%M:%S")+" Nachricht erhalten: "+str(msg))
     split = msg.split(" ")
+    global task
     i=0
     a = message.topic.split("/")
     print(a)
