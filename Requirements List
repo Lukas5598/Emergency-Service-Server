@@ -5,9 +5,8 @@ R2. Die Fahrzeuge müssen die Informationen vom Server erhalten.
 R3. Die Fahrzeuge bestätigen die Informationen, die vom Server erhalten wurden.
 R4. Die Anzahl der losgeschickten Fahrzeuge wird an den Server vermittelt.
 R5. Die Fahrzeuge bestätigen die Ankunft am Einsatzort an den Server.
-R6. Die Anzahl der Personen im Fahrzeug können angepasst werden.
-R7. Der Server befehlt wann die Fahrzeuge den Einsatzort wieder verlassen dürfen.
-R8. Beim Verlassen des Einsatzortes geben die Fahrzeuge ihre Informationen und eventuelle Änderungen der Personen Anzahl an den Server weiter.
+R6. Die Fahrzeuge bestätigen die Abfahrt vom Einsatzort.
+R8. Bei Rückkehr an der Basis kriegt der server eine Meldung das dass Fahrzeug wieder verfügbar ist.
 
 Nicht Funktionale Anforderungen
 
@@ -16,7 +15,7 @@ RN2. Der Krankenwagen muss innerhalb von weniger als 8 Minuten am Einsatzort ein
 RN3. Der Feuerwehrwagen muss innerhalb von weniger als 20 Minuten am Einsatzort eintreffen.
 RN4. Der Polizeiwagen muss innerhalb von weniger als 15 Minuten am Einsatzort eintreffen.
 RN5. Die Bestätigung der Ankunft der Fahrzeuge darf nicht länger als 2 Minuten nach Ankunft erfolgen.
-RN6. Die Bestätigung der Abfahrt vom Einsatzort der Fahrzeuge darf nicht länger als 3 Minuten nach Abfahrt erfolgen.
+RN6. Die Bestätigung der Abfahrt vom Einsatzort der Fahrzeuge darf nicht länger als 2 Minuten nach Abfahrt erfolgen.
 RN7. Der Krankenwagen brauch 3 Personen, um agieren zu können. (2 Fahrer, Arzt (Experte))
 RN8. Der Polizeiwagen brauch 2 Personen, um agieren zu können. (2 Polizeibeamte)
 RN9. Der Feuerwehrwagen brauch 9 Personen, um agieren zu können. (1 Einsatzleiter, 8 Feuerwehrmänner)
